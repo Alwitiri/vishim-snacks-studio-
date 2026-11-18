@@ -17,6 +17,9 @@ const SEED_FILE = path.join(ROOT, 'seed.json');
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads'); // served at /uploads/
 const MAX_BODY = 6 * 1024 * 1024; // 6 MB (image uploads are sent as base64)
 const SESSION_TTL = 1000 * 60 * 60 * 12; // 12 hours
+// Login is OFF by default: /admin opens directly for anyone.
+// Set REQUIRE_LOGIN=1 (and ADMIN_PASSWORD) on the host to turn the password login back on.
+const LOGIN_REQUIRED = process.env.REQUIRE_LOGIN === '1';
 // On hosts with temporary disks (e.g. Render), never allow claiming the admin via the web:
 // the password must come from the ADMIN_PASSWORD environment variable.
 const WEB_SETUP_DISABLED = !!(process.env.RENDER || process.env.DISABLE_WEB_SETUP);
@@ -87,6 +90,7 @@ function getCookie(req, name) {
   return null;
 }
 function isAuthed(req) {
+  if (!LOGIN_REQUIRED) return true;
   const t = getCookie(req, 'vss_session');
   if (!t || !sessions.has(t)) return false;
   if (sessions.get(t) < Date.now()) { sessions.delete(t); return false; }
@@ -223,7 +227,7 @@ async function handleApi(req, res, url) {
 
   /* ---- auth ---- */
   if (p === '/api/auth/status' && m === 'GET') {
-    return send(res, 200, { configured: !!db.admin.passwordHash, loggedIn: isAuthed(req), setupDisabled: WEB_SETUP_DISABLED && !db.admin.passwordHash });
+    return send(res, 200, { configured: !!db.admin.passwordHash, loggedIn: isAuthed(req), setupDisabled: LOGIN_REQUIRED && WEB_SETUP_DISABLED && !db.admin.passwordHash, loginRequired: LOGIN_REQUIRED });
   }
   if (p === '/api/auth/setup' && m === 'POST') {
     if (db.admin.passwordHash) return send(res, 409, { error: 'Admin already set up' });
@@ -394,5 +398,6 @@ http.createServer(async (req, res) => {
 }).listen(PORT, () => {
   console.log(`Vishim Snack Studio running at http://localhost:${PORT}`);
   console.log(`Admin panel:                  http://localhost:${PORT}/admin/`);
-  if (!db.admin.passwordHash) console.log('No admin password yet — open the admin panel to create one.');
+  if (!LOGIN_REQUIRED) console.log('Admin login is OFF: anyone can open /admin/. Set REQUIRE_LOGIN=1 to require a password.');
+  else if (!db.admin.passwordHash) console.log('No admin password yet — open the admin panel to create one.');
 });

@@ -11,8 +11,8 @@ node server.js
 - Website: http://localhost:3000
 - Admin: http://localhost:3000/admin/
 
-**The first time you open /admin/**, it asks you to create the admin password (at least 8 characters).
-If you forget the password, start the server once with `ADMIN_PASSWORD=yourNewPassword node server.js` to set a new one.
+**The admin panel has no login.** /admin/ opens directly, so anyone who knows the URL can edit the site.
+To turn the password login back on, set `REQUIRE_LOGIN=1` and `ADMIN_PASSWORD=yourPassword` (for example in Render → Environment).
 
 To use a different port, run `PORT=8080 node server.js`.
 

@@ -475,6 +475,9 @@
       return;
     }
     if (!status.loggedIn) return showAuth(status.configured);
+    // When login is turned off on the server, hide the log-out button and password page
+    $('#logoutBtn').hidden = status.loginRequired === false;
+    $$('[data-view="account"]').forEach((el) => (el.hidden = status.loginRequired === false));
     db = await api('/api/admin/data');
     $('#auth').hidden = true;
     $('#app').hidden = false;
