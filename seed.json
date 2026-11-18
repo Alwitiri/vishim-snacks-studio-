@@ -1,0 +1,50 @@
+{
+  "admin": {},
+  "settings": {
+    "name": "Vishim Snack Studio",
+    "tagline": "Quick bites. Great taste.",
+    "heroTitle": "Hot Momos.",
+    "heroScript": "Happy Moments.",
+    "heroSubtitle": "Quick bites. Great taste.\nOnly at Vishim Snack Studio.",
+    "phone": "098443 71351",
+    "addressShort": "Charring Cross, Ooty",
+    "addressLine2": "Tamil Nadu 643001",
+    "addressFull": "No.63 Charring Cross Complex, Garden Rd, Ooty, Tamil Nadu 643001",
+    "priceRange": "₹1 – 200",
+    "hoursText": "Open · Closes 12 am",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Vishim+Snack+Studio+Charring+Cross+Ooty",
+    "aboutText": "A cozy snack studio in the heart of Ooty, serving delicious bites like momos, noodles and soups. Perfect for a quick treat with friendly service and great taste!",
+    "aboutScript": "Quick Bites with Beverages.",
+    "footerMotto": "Eat · Snack · Relax",
+    "noticeText": "",
+    "temporarilyClosed": false
+  },
+  "categories": [
+    { "id": "momos", "name": "Momos", "image": "/assets/img/momos.webp" },
+    { "id": "noodles", "name": "Noodles", "image": "/assets/img/noodles.webp" },
+    { "id": "soup", "name": "Soup", "image": "/assets/img/soup.webp" }
+  ],
+  "menu": [
+    { "id": "m1", "name": "Veg Steamed Momos", "category": "Momos", "price": 80, "description": "Soft dumplings stuffed with cabbage, carrot & spring onion. Served with spicy red chutney.", "veg": true, "available": true, "popular": true, "image": "/assets/img/momos.webp", "order": 1 },
+    { "id": "m2", "name": "Veg Fried Momos", "category": "Momos", "price": 100, "description": "Golden, crispy and loaded with veggies.", "veg": true, "available": true, "popular": false, "image": "/assets/img/momos.webp", "order": 2 },
+    { "id": "m3", "name": "Paneer Momos", "category": "Momos", "price": 110, "description": "Juicy paneer & herbs wrapped in a thin dough.", "veg": true, "available": true, "popular": false, "image": "/assets/img/momos.webp", "order": 3 },
+    { "id": "m4", "name": "Chicken Steamed Momos", "category": "Momos", "price": 120, "description": "Our bestseller — minced chicken, ginger & garlic.", "veg": false, "available": true, "popular": true, "image": "/assets/img/momos.webp", "order": 4 },
+    { "id": "m5", "name": "Chicken Fried Momos", "category": "Momos", "price": 140, "description": "Crunchy outside, juicy inside.", "veg": false, "available": true, "popular": false, "image": "/assets/img/momos.webp", "order": 5 },
+    { "id": "n1", "name": "Veg Hakka Noodles", "category": "Noodles", "price": 90, "description": "Wok-tossed noodles with crunchy vegetables.", "veg": true, "available": true, "popular": false, "image": "/assets/img/noodles.webp", "order": 6 },
+    { "id": "n2", "name": "Schezwan Noodles", "category": "Noodles", "price": 110, "description": "Fiery, tangy and full of flavour.", "veg": true, "available": true, "popular": true, "image": "/assets/img/noodles.webp", "order": 7 },
+    { "id": "n3", "name": "Egg Noodles", "category": "Noodles", "price": 110, "description": "Classic street-style noodles with scrambled egg.", "veg": false, "available": true, "popular": false, "image": "/assets/img/noodles.webp", "order": 8 },
+    { "id": "n4", "name": "Chicken Noodles", "category": "Noodles", "price": 130, "description": "Tossed with tender chicken strips & veggies.", "veg": false, "available": true, "popular": false, "image": "/assets/img/noodles.webp", "order": 9 },
+    { "id": "s1", "name": "Veg Clear Soup", "category": "Soup", "price": 60, "description": "Light, warming broth — perfect for Ooty weather.", "veg": true, "available": true, "popular": false, "image": "/assets/img/soup.webp", "order": 10 },
+    { "id": "s2", "name": "Sweet Corn Soup", "category": "Soup", "price": 70, "description": "Creamy and comforting.", "veg": true, "available": true, "popular": false, "image": "/assets/img/soup.webp", "order": 11 },
+    { "id": "s3", "name": "Hot & Sour Soup", "category": "Soup", "price": 80, "description": "Spicy, tangy and loaded with veggies.", "veg": true, "available": true, "popular": true, "image": "/assets/img/soup.webp", "order": 12 },
+    { "id": "s4", "name": "Chicken Manchow Soup", "category": "Soup", "price": 100, "description": "Topped with crispy fried noodles.", "veg": false, "available": true, "popular": false, "image": "/assets/img/soup.webp", "order": 13 },
+    { "id": "b1", "name": "Masala Tea", "category": "Beverages", "price": 20, "description": "Hot ginger-cardamom chai.", "veg": true, "available": true, "popular": false, "image": "/assets/img/coffee-sketch.webp", "order": 14 },
+    { "id": "b2", "name": "Filter Coffee", "category": "Beverages", "price": 25, "description": "Strong, frothy and freshly brewed.", "veg": true, "available": true, "popular": false, "image": "/assets/img/coffee-sketch.webp", "order": 15 },
+    { "id": "b3", "name": "Hot Chocolate", "category": "Beverages", "price": 70, "description": "Rich and creamy — a hill-station favourite.", "veg": true, "available": true, "popular": false, "image": "/assets/img/coffee-sketch.webp", "order": 16 }
+  ],
+  "reviews": [
+    { "id": "r1", "name": "Sushmita Sajji", "rating": 5, "text": "Food is good at best price, but there is not much space.", "avatar": "/assets/img/avatar-1.webp", "status": "approved", "createdAt": "2026-10-03T10:00:00.000Z" },
+    { "id": "r2", "name": "Tessy francis", "rating": 5, "text": "Everything in this place tastes awesome.", "avatar": "/assets/img/avatar-2.webp", "status": "approved", "createdAt": "2026-10-02T10:00:00.000Z" },
+    { "id": "r3", "name": "Sumiran Upadhyay", "rating": 5, "text": "We tried soup, noodles and momos and we loved everything…", "avatar": "/assets/img/avatar-3.webp", "status": "approved", "createdAt": "2026-10-01T10:00:00.000Z" }
+  ]
+}

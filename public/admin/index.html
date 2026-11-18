@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1e3220">
+  <title>Admin · Vishim Snack Studio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231e3220'/><path d='M10 44 26 20l8 11 6-7 14 20z' fill='%23f3e3c3'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Kaushan+Script&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css?v=2">
+</head>
+<body>
+  <!-- ============ AUTH ============ -->
+  <section class="auth" id="auth" hidden>
+    <form class="auth-card" id="authForm">
+      <div class="brand"><span class="brand-main">VISHIM</span><span class="brand-sub">Snack Studio · Admin</span></div>
+      <h1 id="authTitle">Welcome back</h1>
+      <p class="muted" id="authHint">Log in to manage your menu, reviews and store details.</p>
+      <label>Password
+        <input type="password" name="password" id="authPassword" required minlength="8" autocomplete="current-password">
+      </label>
+      <label id="confirmWrap" hidden>Confirm password
+        <input type="password" name="confirm" id="authConfirm" minlength="8" autocomplete="new-password">
+      </label>
+      <button class="btn primary block" type="submit" id="authBtn">Log in</button>
+      <p class="form-err" id="authErr" role="alert"></p>
+      <a class="muted small" href="/">← Back to website</a>
+    </form>
+  </section>
+
+  <!-- ============ APP ============ -->
+  <div class="app" id="app" hidden>
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-main">VISHIM</span><span class="brand-sub">Admin</span></div>
+      <nav class="side-nav" id="sideNav">
+        <a href="#dashboard" data-view="dashboard"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"/></svg><span>Dashboard</span></a>
+        <a href="#menu" data-view="menu"><svg viewBox="0 0 24 24"><path d="M8.1 13.3 10.9 10.5 3.9 3.5a4 4 0 0 0 0 5.7zm6.8-1.8c1.5.7 3.7.2 5.3-1.4 1.9-1.9 2.3-4.7.8-6.2s-4.3-1.1-6.2.8c-1.6 1.6-2.1 3.8-1.4 5.3L3.7 19.9l1.4 1.4 6.9-6.9 6.9 6.9 1.4-1.4-6.9-6.9z"/></svg><span>Menu</span></a>
+        <a href="#reviews" data-view="reviews"><svg viewBox="0 0 24 24"><path d="M12 17.3 18.2 21l-1.6-7L22 9.2l-7.2-.6L12 2 9.2 8.6 2 9.2 7.5 14l-1.7 7z"/></svg><span>Reviews</span><b class="badge" id="pendingBadge" hidden>0</b></a>
+        <a href="#categories" data-view="categories"><svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="4"/><circle cx="17" cy="7" r="4"/><circle cx="7" cy="17" r="4"/><circle cx="17" cy="17" r="4"/></svg><span>Highlights</span></a>
+        <a href="#settings" data-view="settings"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span>Store</span></a>
+        <a href="#account" data-view="account"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-9 2.2-9 5v3h18v-3c0-2.8-4.6-5-9-5z"/></svg><span>Account</span></a>
+      </nav>
+      <a class="view-site" href="/" target="_blank" rel="noopener">View website ↗</a>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1 id="viewTitle">Dashboard</h1>
+        <div class="topbar-actions">
+          <a class="btn ghost sm hide-sm" href="/" target="_blank" rel="noopener">View site ↗</a>
+          <button class="btn ghost sm" id="logoutBtn" type="button">Log out</button>
+        </div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <section class="view" id="view-dashboard">
+        <div class="stats" id="stats"></div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h2>Store status</h2></div>
+            <div class="status-row">
+              <div>
+                <strong id="statusText">Open</strong>
+                <p class="muted small" id="statusHours"></p>
+              </div>
+              <label class="switch big" title="Toggle temporarily closed">
+                <input type="checkbox" id="quickOpen"><span></span>
+              </label>
+            </div>
+            <p class="muted small">Switch off to show a “closed” banner on the website.</p>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Pending reviews</h2><a href="#reviews" class="link">See all</a></div>
+            <div id="dashPending"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Quick actions</h2></div>
+          <div class="quick">
+            <button class="btn primary" type="button" data-action="add-item">+ Add menu item</button>
+            <a class="btn" href="#settings">Edit store details</a>
+            <a class="btn" href="#categories">Change highlights</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU -->
+      <section class="view" id="view-menu" hidden>
+        <div class="toolbar">
+          <input type="search" id="menuSearch" placeholder="Search dishes…" aria-label="Search dishes">
+          <select id="menuFilter" aria-label="Filter by category"></select>
+          <button class="btn primary" type="button" data-action="add-item">+ Add item</button>
+        </div>
+        <div class="list" id="menuList"></div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="view" id="view-reviews" hidden>
+        <div class="toolbar">
+          <div class="seg" id="reviewSeg" role="tablist">
+            <button type="button" data-status="pending" aria-selected="true">Pending</button>
+            <button type="button" data-status="approved">Approved</button>
+            <button type="button" data-status="hidden">Hidden</button>
+          </div>
+          <button class="btn primary" type="button" data-action="add-review">+ Add review</button>
+        </div>
+        <div class="list" id="reviewList"></div>
+      </section>
+
+      <!-- CATEGORIES -->
+      <section class="view" id="view-categories" hidden>
+        <div class="card">
+          <div class="card-head"><h2>Homepage highlights</h2></div>
+          <p class="muted small">These are the round pictures under the hero (Momos, Noodles, Soup). Up to 6. Tapping one on the website filters the menu by a category with the same name.</p>
+          <div class="cat-edit" id="catEdit"></div>
+          <div class="row-end">
+            <button class="btn" type="button" id="addCat">+ Add highlight</button>
+            <button class="btn primary" type="button" id="saveCats">Save highlights</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="view" id="view-settings" hidden>
+        <form id="settingsForm" class="settings">
+          <div class="card">
+            <div class="card-head"><h2>Contact &amp; location</h2></div>
+            <div class="fields">
+              <label>Store name<input name="name" maxlength="80"></label>
+              <label>Phone<input name="phone" maxlength="30" inputmode="tel"></label>
+              <label>Area (short)<input name="addressShort" maxlength="80"></label>
+              <label>State &amp; PIN<input name="addressLine2" maxlength="80"></label>
+              <label class="full">Full address<input name="addressFull" maxlength="200"></label>
+              <label class="full">Google Maps link<input name="mapsUrl" maxlength="500" type="url" placeholder="https://"></label>
+              <label>Price range<input name="priceRange" maxlength="30"></label>
+              <label>Hours text<input name="hoursText" maxlength="60"></label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Announcement</h2></div>
+            <div class="fields">
+              <label class="full switch-row"><span>Temporarily closed</span><span class="switch"><input type="checkbox" name="temporarilyClosed"><span></span></span></label>
+              <label class="full">Banner text <small class="muted">(optional, shown at the top of the site)</small><input name="noticeText" maxlength="200" placeholder="e.g. New: Chicken Kurkure Momos!"></label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Website text</h2></div>
+            <div class="fields">
+              <label>Hero line 1<input name="heroTitle" maxlength="60"></label>
+              <label>Hero line 2 (gold)<input name="heroScript" maxlength="60"></label>
+              <label class="full">Hero subtitle<textarea name="heroSubtitle" rows="2" maxlength="200"></textarea></label>
+              <label class="full">About text<textarea name="aboutText" rows="4" maxlength="800"></textarea></label>
+              <label>About tagline<input name="aboutScript" maxlength="80"></label>
+              <label>Footer motto<input name="footerMotto" maxlength="60"></label>
+            </div>
+          </div>
+          <div class="sticky-save"><button class="btn primary" type="submit">Save changes</button></div>
+        </form>
+      </section>
+
+      <!-- ACCOUNT -->
+      <section class="view" id="view-account" hidden>
+        <form class="card narrow" id="pwForm">
+          <div class="card-head"><h2>Change password</h2></div>
+          <div class="fields one">
+            <label>Current password<input type="password" name="current" required autocomplete="current-password"></label>
+            <label>New password<input type="password" name="next" required minlength="8" autocomplete="new-password"></label>
+            <label>Confirm new password<input type="password" name="confirm" required minlength="8" autocomplete="new-password"></label>
+          </div>
+          <button class="btn primary" type="submit">Update password</button>
+        </form>
+      </section>
+    </main>
+
+    <nav class="tabbar" id="tabbar" aria-label="Admin sections"></nav>
+  </div>
+
+  <!-- ============ ITEM DIALOG ============ -->
+  <dialog class="sheet" id="itemDialog">
+    <form method="dialog" id="itemForm">
+      <header class="sheet-head"><h2 id="itemTitle">Add item</h2><button class="icon-btn" value="cancel" formnovalidate aria-label="Close">✕</button></header>
+      <div class="sheet-body">
+        <div class="img-pick">
+          <div class="img-preview" id="itemPreview"></div>
+          <div class="img-actions">
+            <label class="btn sm">Upload photo<input type="file" accept="image/*" id="itemFile" hidden></label>
+            <select id="itemGallery" aria-label="Choose existing image"></select>
+          </div>
+        </div>
+        <input type="hidden" name="image">
+        <div class="fields">
+          <label class="full">Name<input name="name" required maxlength="80"></label>
+          <label>Category<input name="category" required maxlength="40" list="catList"></label>
+          <label>Price (₹)<input name="price" type="number" min="0" step="1" required inputmode="numeric"></label>
+          <label class="full">Description<textarea name="description" rows="2" maxlength="240"></textarea></label>
+          <label class="switch-row"><span>Vegetarian</span><span class="switch"><input type="checkbox" name="veg"><span></span></span></label>
+          <label class="switch-row"><span>Available</span><span class="switch"><input type="checkbox" name="available"><span></span></span></label>
+          <label class="switch-row"><span>Popular tag</span><span class="switch"><input type="checkbox" name="popular"><span></span></span></label>
+          <label>Sort order<input name="order" type="number" min="0" step="1"></label>
+        </div>
+        <datalist id="catList"></datalist>
+      </div>
+      <footer class="sheet-foot">
+        <button class="btn" value="cancel" formnovalidate>Cancel</button>
+        <button class="btn primary" value="save" id="itemSave">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- ============ REVIEW DIALOG ============ -->
+  <dialog class="sheet" id="reviewDialog">
+    <form method="dialog" id="reviewForm">
+      <header class="sheet-head"><h2 id="reviewTitle">Add review</h2><button class="icon-btn" value="cancel" formnovalidate aria-label="Close">✕</button></header>
+      <div class="sheet-body">
+        <div class="fields">
+          <label class="full">Customer name<input name="name" required maxlength="60"></label>
+          <label>Rating
+            <select name="rating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
+          </label>
+          <label>Status
+            <select name="status"><option value="approved">Approved</option><option value="pending">Pending</option><option value="hidden">Hidden</option></select>
+          </label>
+          <label class="full">Review<textarea name="text" rows="3" required maxlength="600"></textarea></label>
+          <label class="full">Photo
+            <span class="inline-pick"><span class="img-preview sm" id="reviewPreview"></span>
+            <label class="btn sm">Upload<input type="file" accept="image/*" id="reviewFile" hidden></label>
+            <button type="button" class="btn sm ghost" id="reviewNoPhoto">Remove</button></span>
+          </label>
+          <input type="hidden" name="avatar">
+        </div>
+      </div>
+      <footer class="sheet-foot">
+        <button class="btn" value="cancel" formnovalidate>Cancel</button>
+        <button class="btn primary" value="save">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- ============ CONFIRM ============ -->
+  <dialog class="confirm" id="confirmDialog">
+    <form method="dialog">
+      <p id="confirmText">Are you sure?</p>
+      <div class="row-end">
+        <button class="btn" value="no">Cancel</button>
+        <button class="btn danger" value="yes">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <script src="/admin/admin.js?v=3" defer></script>
+</body>
+</html>
